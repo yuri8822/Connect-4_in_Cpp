@@ -8,7 +8,7 @@ Project
 #include <stdlib.h>
 #include <windows.h>
 #include <fstream>
-#include <cstring>
+#include <string>
 
 using namespace std;
 

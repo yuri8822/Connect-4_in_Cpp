@@ -38,8 +38,8 @@ void setColor(int textColor, int bgColor);
 void Menu();
 void howTo();
 void Play();
-void Display(int **seats);
-int checkWin(int **seats);
+void Display(int seats[][13]);
+int checkWin(int seats[][13]);
 
 int main()
 {
@@ -175,11 +175,7 @@ void Play()
     name_found2=false;
     outFile.close();
     inFile.close();
-    int **seats = new int*[13];
-    for (int i=0; i<13; i++)
-    {
-        seats[i] = new int [13];
-    }
+    int seats[13][13];    
 
     int col; 
     
@@ -221,12 +217,45 @@ void Play()
             //This establishes the players choice after checking which row, closest to the bottom, is available for the column that the player selected. 
             for (int row=9; row>=3; row--)
             {
+                if (row == 3)
+                {
+                    if (seats[row][col]==-1 || seats[row][col]==-2)
+                    {
+                        cout << "This column is filled, please choose another column\n";
+                        goto redo1;
+                    }
+                }
                 if (seats[row][col]==1)
                 {
                     seats[row][col]=-1;
                     break;
                 }
-            }            
+            }
+            bool full = true;
+            for (int row = 3; row < 10; row++)
+            {
+                for (int col = 3; col < 10; col++)        
+                {
+                    if (seats[row][col] == 1) 
+                    {
+                        full = false;
+                    }                    
+                }        
+            }
+            if (full==true)
+            {
+                Display(seats);
+                cout << "Game Over! No one wins!\n";
+                for (int i=0; i<13; i++)
+                {
+                    for (int j=0; j<13; j++)
+                    {
+                        seats[i][j] = 1;
+                    }
+                }
+                system("PAUSE");
+                main();
+            }
         }
         //If turn is an odd number, this one runs.
         else
@@ -256,12 +285,45 @@ void Play()
             //This establishes the players choice after checking which row, closest to the bottom, is available for the column that the player selected. 
             for (int row=9; row>=3; row--)
             {
+                if (row == 3)
+                {
+                    if (seats[row][col]==-1 || seats[row][col]==-2)
+                    {
+                        cout << "This column is filled, please choose another column\n";
+                        goto redo2;
+                    }
+                }
                 if (seats[row][col]==1)
                 {
                     seats[row][col]=-2;
                     break;
                 }
-            }            
+            } 
+            bool full = true;
+            for (int row = 3; row < 10; row++)
+            {
+                for (int col = 3; col < 10; col++)        
+                {
+                    if (seats[row][col] == 1) 
+                    {
+                        full = false;
+                    }                    
+                }        
+            }
+            if (full==true)
+            {
+                Display(seats);
+                cout << "Game Over! No one wins!\n";
+                for (int i=0; i<13; i++)
+                {
+                    for (int j=0; j<13; j++)
+                    {
+                        seats[i][j] = 1;
+                    }
+                }
+                system("PAUSE");
+                main();
+            }         
         }
         //This keeps track of which turn it is, odd or even.
         turn++; 
@@ -281,17 +343,11 @@ void Play()
             setColor(white, black);
             break;
         }
-         
     }
-    for (int i=0; i<13; i++)
-    {
-        delete [] seats[i];
-    }
-    delete [] seats;
 }
 
 //This function is used to display the current state of the array, it shows the status of each and every block in the virtual 7x7 grid.
-void Display(int **seats)
+void Display(int seats[][13])
 {
     system("CLS");
     for (int i=3; i<10; i++)
@@ -324,7 +380,7 @@ void Display(int **seats)
     cout << "\t|       1               2               3               4               5               6               7       |\n";        
 }
 
-int checkWin(int **seats)
+int checkWin(int seats[][13])
 {
     for (int i=3; i<10; i++)
     {

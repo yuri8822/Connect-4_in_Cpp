@@ -40,6 +40,7 @@ void howTo();
 void Play();
 void Display(int seats[][13]);
 int checkWin(int seats[][13]);
+void resetGrid(int seats[][13]);
 
 int main()
 {
@@ -177,15 +178,10 @@ void Play()
     inFile.close();
     int seats[13][13];    
 
-    int col; 
-    
-    for (int i=0; i<13; i++)
-    {
-        for (int j=0; j<13; j++)
-        {
-            seats[i][j]=1;
-        }
-    }
+    int col;
+
+    resetGrid(seats);
+
     int turn=0;
     while (1)
     {
@@ -246,13 +242,7 @@ void Play()
             {
                 Display(seats);
                 cout << "Game Over! No one wins!\n";
-                for (int i=0; i<13; i++)
-                {
-                    for (int j=0; j<13; j++)
-                    {
-                        seats[i][j] = 1;
-                    }
-                }
+                resetGrid(seats);
                 system("PAUSE");
                 main();
             }
@@ -314,13 +304,7 @@ void Play()
             {
                 Display(seats);
                 cout << "Game Over! No one wins!\n";
-                for (int i=0; i<13; i++)
-                {
-                    for (int j=0; j<13; j++)
-                    {
-                        seats[i][j] = 1;
-                    }
-                }
+                resetGrid(seats);
                 system("PAUSE");
                 main();
             }         
@@ -429,4 +413,15 @@ int checkWin(int seats[][13])
         }
     }
     return 0;
+}
+
+void resetGrid(int seats[][13])
+{
+    for (int i=0; i<13; i++)
+    {
+        for (int j=0; j<13; j++)
+        {
+            seats[i][j]=1;
+        }
+    }
 }

@@ -85,7 +85,8 @@ int main()
         system("CLS");
         goto menu;
     break;
-    }   
+    }
+    system("PAUSE");
 }
 
 void setColor(int textColor, int bgColor) 
@@ -244,7 +245,7 @@ void Play()
                 cout << "Game Over! No one wins!\n";
                 resetGrid(seats);
                 system("PAUSE");
-                main();
+                return;
             }
         }
         //If turn is an odd number, this one runs.
@@ -306,7 +307,7 @@ void Play()
                 cout << "Game Over! No one wins!\n";
                 resetGrid(seats);
                 system("PAUSE");
-                main();
+                return;
             }         
         }
         //This keeps track of which turn it is, odd or even.
